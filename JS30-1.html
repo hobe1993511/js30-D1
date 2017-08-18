@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js30 Day1</title>
+    <link href="css/agency.css" rel="stylesheet">
+
+</head>
+<body>
+    <div class="bg">
+        <div class="keys">
+            <div data-key="65" class="key">
+                <kbd>A</kbd> 
+                <span class="sound">clap</span>
+            </div>
+           <div data-key="83" class="key">
+                <kbd>S</kbd> 
+                <span class="sound">clap</span>
+            </div>
+        </div>
+    </div>
+       
+ <audio data-key="65" src="css/clap.wav"></audio>
+ <audio data-key="83" src="css/clap.wav"></audio>       
+<script>
+ window.addEventListener('keydown', function(e){
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if(!audio) return;
+    audio.currentTime = 0;
+    audio.play();
+    key.classList.add('playing');
+});
+
+function removeTransition(e){
+    if (e.propertyName !=='transform') return;
+    this.classList.remove('playing');
+}
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    </script>      
+</body>
+</html>
